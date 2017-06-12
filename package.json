@@ -2,10 +2,21 @@
   "name": "g50-galvanize-reads",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "heroku-postbuild": "knex migrate:latest",
+    "knex": "knex",
+    "lint": "eslint  --ignore-pattern public/js/vendor",
+    "nf": "nf start",
+    "start": "nodemon server.js",
+    "test": "mocha",
+    "knex": "knex"
+  },
   "repository": "https://github.com/ishamd/g50-galvanize-reads.git",
   "author": "Daniel Isham <danielisham1@gmail.com>",
   "license": "MIT",
+
   "dependencies": {
-    "knex": "^0.13.0"
+    "knex": "^0.13.0",
+    "pg": "^6.2.4"
   }
 }
