@@ -1,11 +1,11 @@
 
 exports.up = function (knex) {
   return knex.schema.createTable('authors', (table) => {
-    table.increments();
+    table.increments('id');
     table.string('First Name').notNullable().defaultTo('');
     table.string('Last Name').notNullable().defaultTo('');
-    table.string('Biography').notNullable().defaultTo('');
-    table.string('Portait URL').notNullable().defaultTo('');
+    table.text('Biography').notNullable().defaultTo('');
+    table.text('Portrait URL').notNullable().defaultTo('');
     table.timestamps(true, true);
   });
 };
