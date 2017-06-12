@@ -1,0 +1,11 @@
+{
+  "name": "g50-galvanize-reads",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ishamd/g50-galvanize-reads.git",
+  "author": "Daniel Isham <danielisham1@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "knex": "^0.13.0"
+  }
+}
