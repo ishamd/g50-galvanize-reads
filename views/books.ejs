@@ -13,7 +13,9 @@
       <p><%=book['Book Description']%></p>
       <p><strong>Authors:</strong></p>
       <ol>
-        <li>author name</li>
+        <% for (let i = 0; i < books.authors.length; i++) { %>
+        <li><%=books.authors[i]['First Name'] +' '+ books.authors[i]['Last Name']%></li>
+        <% }; %>
       </ol>
     <% }); %>
   </body>
