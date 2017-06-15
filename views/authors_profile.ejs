@@ -7,14 +7,13 @@
   <body>
     <h1>Authors Profile Page</h1>
     <% authors.forEach((author) => { %>
-      <img src="<%= author['Portrait URL'] %>" alt="<%= author['First Name'] %>" />
-      <h2><%=author['First Name']%></h2>
-      <h3><%=author['Last Name']%></h3>
+      <img src="<%= author['Portrait URL'] %>" alt="<%= author['First Name'] %>" style="height:175px;width:150px;"/>
+      <h2><%=author['First Name']+' '+author['Last Name']%></h2>
       <p><%=author['Biography']%></p>
       <p><strong>Books:</strong></p>
       <ol>
         <% for (let i = 0; i < authors.books.length; i++) { %>
-        <li><%=authors.books[i]['Book Title']%></li>
+        <a href="/books/<%=authors.books[i]['id'] %>"><li><%=authors.books[i]['Book Title']%></li></a>
         <% }; %>
       </ol>
     <% }); %>

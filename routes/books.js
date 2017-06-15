@@ -64,4 +64,21 @@ router.get('/books/:id', (_req, res, next) => {
   });
 });
 
+// GET request to populate book edit page using book id/info
+router.get('/books/:id/edit', (_req, res, next) => {
+  const id = Number.parseInt(_req.params.id);
+
+  getBookWithAuthors(id)
+
+  .then((books) => {
+    res.render('books_edit', {
+      books,
+    });
+  })
+
+  .catch((err) => {
+    next(err);
+  });
+});
+
 module.exports = router;

@@ -7,18 +7,18 @@
   <body>
     <h1>Books Profile Page</h1>
     <% books.forEach((book) => { %>
-      <img src="<%= book['Book Cover URL'] %>" alt="<%= book['Book Title'] %>" />
+      <img src="<%= book['Book Cover URL'] %>" alt="<%= book['Book Title'] %>" style="height:300px;width:300px;"/>
       <h2><%=book['Book Title']%></h2>
       <h3><%=book['Book Genre']%></h3>
       <p><%=book['Book Description']%></p>
       <p><strong>Authors:</strong></p>
       <ol>
         <% for (let i = 0; i < books.authors.length; i++) { %>
-        <li><%=books.authors[i]['First Name'] +' '+ books.authors[i]['Last Name']%></li>
+        <a href="/authors/<%=books.authors[i]['id'] %>"><li><%=books.authors[i]['First Name'] +' '+ books.authors[i]['Last Name']%></li></a>
         <% }; %>
       </ol>
     <% }); %>
-    <button type="button" class="btn btn-defualt">Edit</button>
+    <a href="/books/<%=books[0]['id']%>/edit"><button type="button" class="btn btn-defualt">Edit</button></a>
     <button type="button" class="btn btn-defualt">Remove</button>
   </body>
 </html>
