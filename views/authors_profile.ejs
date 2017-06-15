@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Authors Profile Page</title>
+  </head>
+  <body>
+    <h1>Authors Profile Page</h1>
+    <% authors.forEach((author) => { %>
+      <img src="<%= author['Portrait URL'] %>" alt="<%= author['First Name'] %>" />
+      <h2><%=author['First Name']%></h2>
+      <h3><%=author['Last Name']%></h3>
+      <p><%=author['Biography']%></p>
+      <p><strong>Books:</strong></p>
+      <ol>
+        <% for (let i = 0; i < authors.books.length; i++) { %>
+        <li><%=authors.books[i]['Book Title']%></li>
+        <% }; %>
+      </ol>
+    <% }); %>
+    <button type="button" class="btn btn-defualt">Edit</button>
+    <button type="button" class="btn btn-defualt">Remove</button>
+  </body>
+</html>

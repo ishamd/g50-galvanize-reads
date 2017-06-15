@@ -12,25 +12,25 @@ const app = express();
 app.set('view engine', 'ejs');
 
 // functions to be used in GET requests
-function getBook(id) {
-  return knex('books')
-    .where('books.id', id);
-}
-
-function getAuthorsForBook(bookId) {
+function getAuthor(id) {
   return knex('authors')
-    .join('books_authors', 'authors.id', 'books_authors.author_id')
-    .where('books_authors.book_id', bookId);
+    .where('authors.id', id);
 }
 
-function getBookWithAuthors(bookId) {
+function getBooksForAuthor(authorId) {
+  return knex('books')
+    .join('books_authors', 'books.id', 'books_authors.book_id')
+    .where('books_authors.author_id', authorId);
+}
+
+function getAuthorWithBooks(authorId) {
   return Promise.all([
-    getBook(bookId),
-    getAuthorsForBook(bookId),
+    getAuthor(authorId),
+    getBooksForAuthor(authorId),
   ]).then((results) => {
-    const [book, authors] = results;
-    book.authors = authors;
-    return book;
+    const [author, books] = results;
+    author.books = books;
+    return author;
   });
 }
 
@@ -48,14 +48,14 @@ router.get('/authors', (_req, res, next) => {
 });
 
 // GET request for individual book with author info
-router.get('/books/:id', (_req, res, next) => {
+router.get('/authors/:id', (_req, res, next) => {
   const id = Number.parseInt(_req.params.id);
 
-  getBookWithAuthors(id)
+  getAuthorWithBooks(id)
 
-  .then((books) => {
-    res.render('books_profile', {
-      books,
+  .then((authors) => {
+    res.render('authors_profile', {
+      authors,
     });
   })
 
