@@ -5,6 +5,7 @@ const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
+const index = require('./routes/index');
 const books = require('./routes/books');
 
 const port = process.env.PORT || 8000;
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join('public')));
 
+app.use(index);
 app.use(books);
 
 app.use((_req, res) => {

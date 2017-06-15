@@ -11,8 +11,30 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
+// functions to be used in GET requests
+function getBook(id) {
+  return knex('books')
+    .where('books.id', id);
+}
 
-// requests all books from our database
+function getAuthorsForBook(bookId) {
+  return knex('authors')
+    .join('books_authors', 'authors.id', 'books_authors.author_id')
+    .where('books_authors.book_id', bookId);
+}
+
+function getBookWithAuthors(bookId) {
+  return Promise.all([
+    getBook(bookId),
+    getAuthorsForBook(bookId),
+  ]).then((results) => {
+    const [book, authors] = results;
+    book.authors = authors;
+    return book;
+  });
+}
+
+// GET request for all books from our database
 router.get('/books', (_req, res, next) => {
   knex('books')
   .then((books) => {
@@ -25,36 +47,17 @@ router.get('/books', (_req, res, next) => {
   });
 });
 
+// GET request for individual book with author info
 router.get('/books/:id', (_req, res, next) => {
   const id = Number.parseInt(_req.params.id);
 
-  function getBook(id) {
-    return knex('books')
-    .where('books.id', id);
-  }
+  getBookWithAuthors(id)
 
-  function getAuthorsForBook(bookId) {
-    return knex('authors')
-    .join('books_authors', 'authors.id', 'books_authors.author_id')
-    .where('books_authors.book_id', bookId);
-  }
-
-  function getBookWithAuthors(bookId) {
-    return Promise.all([
-      getBook(bookId),
-      getAuthorsForBook(bookId),
-    ]).then((results) => {
-      const [book, authors] = results;
-      book.authors = authors;
-      return book;
-    }).then((books) => {
-      res.render('books_profile', {
-        books,
-      });
+  .then((books) => {
+    res.render('books_profile', {
+      books,
     });
-  }
-
-  return getBookWithAuthors(id)
+  })
 
   .catch((err) => {
     next(err);
