@@ -7,7 +7,7 @@
   <body>
     <h1>Books Page</h1>
     <% books.forEach((book) => { %>
-      <img src="<%= book['Book Cover URL'] %>" alt="<%= book['Book Title'] %>" />
+      <a href="/books/<%= book['id'] %>"><img src="<%= book['Book Cover URL'] %>" alt="<%= book['Book Title'] %>" /></a>
     <% }); %>
   </body>
 </html>

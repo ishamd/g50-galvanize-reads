@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Authors Page</title>
+  </head>
+  <body>
+    <h1>Authors Page</h1>
+    <% authors.forEach((author) => { %>
+      <a href="/authors/<%= author['id'] %>"><img src="<%= author['Portrait URL'] %>" alt="<%= author['First Name'] %>" /></a>
+      <a href="/authors/<%= author['id'] %>"><p><%=author['First Name']+' '+author['Last Name']%></p></a>
+      <p><%=author['Biography']%></p>
+    <% }); %>
+  </body>
+</html>
