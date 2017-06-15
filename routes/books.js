@@ -11,8 +11,23 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
+
 // requests all books from our database
 router.get('/books', (_req, res, next) => {
+  knex('books')
+  .then((books) => {
+    res.render('books', {
+      books,
+    });
+  })
+  .catch((err) => {
+    next(err);
+  });
+});
+
+router.get('/books/:id', (_req, res, next) => {
+  const id = Number.parseInt(_req.params.id);
+
   function getBook(id) {
     return knex('books')
     .where('books.id', id);
@@ -33,34 +48,17 @@ router.get('/books', (_req, res, next) => {
       book.authors = authors;
       return book;
     }).then((books) => {
-      res.render('books', {
+      res.render('books_profile', {
         books,
       });
     });
   }
 
-  return getBookWithAuthors(1)
+  return getBookWithAuthors(id)
 
-  // knex.from('books')
-  // .innerJoin('books_authors', 'books.id', 'books_authors.book_id')
-  // .innerJoin('authors', 'books_authors.author_id', 'authors.id')
-  // .then((books) => {
-  //   console.log(books);
-  //   res.render('books', {
-  //     books,
-  //   });
-  // })
-
-  // knex('books')
-  // .then((books) => {
-  //   res.render('books', {
-  //     books,
-  //   });
-  // })
   .catch((err) => {
     next(err);
   });
 });
-
 
 module.exports = router;

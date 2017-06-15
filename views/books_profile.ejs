@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Books Page</title>
+  </head>
+  <body>
+    <h1>Books Page</h1>
+    <% books.forEach((book) => { %>
+      <img src="<%= book['Book Cover URL'] %>" alt="<%= book['Book Title'] %>" />
+      <h2><%=book['Book Title']%></h2>
+      <h3><%=book['Book Genre']%></h3>
+      <p><%=book['Book Description']%></p>
+      <p><strong>Authors:</strong></p>
+      <ol>
+        <% for (let i = 0; i < books.authors.length; i++) { %>
+        <li><%=books.authors[i]['First Name'] +' '+ books.authors[i]['Last Name']%></li>
+        <% }; %>
+      </ol>
+    <% }); %>
+  </body>
+</html>
