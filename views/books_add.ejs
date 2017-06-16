@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Books Add Page</title>
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <a href="/books">Books</a>
+    <a href="/authors">Authors</a>
+    <a href="/books/add">Add Book</a>
+    <a href="/authors/add">Add Author</a>
+    <h1>Add New Book</h1>
+      <form method="POST" action="/books/add">
+        <input type="text" name="title" id="new-title" value="" placeholder="Title" required><br>
+        <input type="text" name="genre" id="new-genre" value="" placeholder="Genre" required><br>
+        <input type="url" name="cover_url" id="new-cover-url" value="" placeholder="Cover Image URL" required><br>
+        <textarea name="description" rows="5" cols="80" id="new-description" placeholder="Description" required></textarea><br>
+        <select class="" name="authors">
+          <% authors.forEach((author) => {%>
+          <option value="<%=author['id'] %>"><%=author['First Name'] + ' ' + author['Last Name'] %></option>
+          <% }); %>
+        </select><br>
+        <button type="submit" class="">Add Book</button>
+      </form>
+  </body>
+</html>

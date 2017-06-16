@@ -5,6 +5,11 @@
     <title>Books Profile Page</title>
   </head>
   <body>
+    <a href="/">Home</a>
+    <a href="/books">Books</a>
+    <a href="/authors">Authors</a>
+    <a href="/books/add">Add Book</a>
+    <a href="/authors/add">Add Author</a>
     <h1>Books Profile Page</h1>
     <% books.forEach((book) => { %>
       <img src="<%= book['Book Cover URL'] %>" alt="<%= book['Book Title'] %>" style="height:300px;width:300px;"/>

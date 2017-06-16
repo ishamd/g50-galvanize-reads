@@ -14,4 +14,9 @@ app.set('view engine', 'ejs');
 // GET request for all books from our database
 router.get('/', (_req, res, next) => res.render('index'));
 
+router.post('/test', (req, res) => {
+  console.log(req.body);
+  res.send('test!');
+});
+
 module.exports = router;

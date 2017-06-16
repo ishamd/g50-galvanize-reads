@@ -47,6 +47,19 @@ router.get('/books', (_req, res, next) => {
   });
 });
 
+router.get('/books/add', (_req, res, next) => {
+  knex('authors')
+  .then((authors) => {
+    res.render('books_add', {
+      authors,
+    });
+  })
+  .catch((err) => {
+    next(err);
+  });
+});
+
+
 // GET request for individual book with author info
 router.get('/books/:id', (_req, res, next) => {
   const id = Number.parseInt(_req.params.id);
@@ -80,5 +93,46 @@ router.get('/books/:id/edit', (_req, res, next) => {
     next(err);
   });
 });
+
+router.patch('/books/:id/edit', (req, res, next) => {
+  knex('books')
+    .where('id', req.params.id)
+    .then((book) => {
+      if (!book) {
+        return next();
+      }
+      return knex('books')
+        .update({
+          'Book Title': req.body.title,
+          'Book Genre': req.body.genre,
+          'Book Description': req.body.description,
+          'Book Cover URL': req.body.cover_url }, '*')
+        .where('id', req.params.id);
+    })
+    .then((books) => {
+      res.render('books_edit', {
+        books,
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.post('/books/add', (req, res, next) => {
+  knex('books')
+  .insert({
+    'Book Title': req.body.title,
+    'Book Genre': req.body.genre,
+    'Book Description': req.body.description,
+    'Book Cover URL': req.body.cover_url }, '*')
+  .then((books) => {
+    res.send(req.body.authors);
+  })
+  .catch((err) => {
+    next(err);
+  });
+});
+
 
 module.exports = router;
