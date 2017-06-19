@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Books Page</title>
-  </head>
-  <body>
-    <a href="/">Home</a>
-    <a href="/books">Books</a>
-    <a href="/authors">Authors</a>
-    <a href="/books/add">Add Book</a>
-    <a href="/authors/add">Add Author</a>
+<% include ./header %>
     <h1>Books Page</h1>
     <h3>Total Books:______</h3>
     <h3>Filter:</h3>
@@ -22,8 +11,23 @@
     <form>
       <input type="text" placeholder="Search (genre)"name="" value="">
     </form>
-    <% books.forEach((book) => { %>
-      <a href="/books/<%= book['id'] %>"><img src="<%= book['Book Cover URL'] %>" alt="<%= book['Book Title'] %>" style="height:300px;width:300px;"/></a>
-    <% }); %>
+    <div class="row">
+      <% books.forEach((book) => { %>
+        <div class="col s3">
+          <div class="card">
+            <div class="card-image">
+              <img src="<%= book['Book Cover URL'] %>">
+            </div>
+            <div class="card-content">
+              <p><%= book['Book Description'] %></p>
+            </div>
+            <div class="card-action">
+              <a href="/books/<%= book['id'] %>"><%= book['Book Title'] %></a>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+
   </body>
 </html>

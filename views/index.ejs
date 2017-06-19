@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Home Page</title>
-  </head>
-  <body>
-    <a href="/">Home</a>
-    <a href="/books">Books</a>
-    <a href="/authors">Authors</a>
-    <a href="/books/add">Add Book</a>
-    <a href="/authors/add">Add Author</a>
-    <h1>Galvanize Reads</h1>
-    <h3>Quick Search</h3>
+<% include ./header %>
+    <form>
+       <div class="input-field">
+         <input id="search" type="search" placeholder="Search (by genre)" required>
+         <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+         <i class="material-icons">close</i>
+       </div>
+     </form>
+<!--
     <form>
       <input type="text" class="form-control" name="#" placeholder="Search (by genre)"><br>
       <button type="submit" class="btn btn-defualt">Submit</button>
-    </form>
+    </form> -->
   </body>
 </html>
