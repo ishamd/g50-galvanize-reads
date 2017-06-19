@@ -120,15 +120,26 @@ router.patch('/books/:id/edit', (req, res, next) => {
 });
 
 router.post('/books/add', (req, res, next) => {
+  const book = req.body;
+  const authorId = book.authors;
+
   knex('books')
   .insert({
-    'Book Title': req.body.title,
-    'Book Genre': req.body.genre,
-    'Book Description': req.body.description,
-    'Book Cover URL': req.body.cover_url }, '*')
-  .then((books) => {
-    res.send(req.body.authors);
+    'Book Title': book.title,
+    'Book Genre': book.genre,
+    'Book Description': book.description,
+    'Book Cover URL': book.cover_url }, '*')
+    .returning('id')
+  .then((id) => {
+    // res.send(authorId);
+    knex('books_authors')
+    .insert({
+      book_id: id,
+      author_id: authorId }, '*');
   })
+    .then((result) => {
+      res.send(result);
+    })
   .catch((err) => {
     next(err);
   });

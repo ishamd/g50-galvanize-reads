@@ -18,7 +18,7 @@
         <textarea name="description" rows="5" cols="80" id="new-description" placeholder="Description" required></textarea><br>
         <select class="" name="authors">
           <% authors.forEach((author) => {%>
-          <option value="<%=author['id'] %>"><%=author['First Name'] + ' ' + author['Last Name'] %></option>
+          <option name="authors" value="<%=author['id'] %>"><%=author['First Name'] + ' ' + author['Last Name'] %></option>
           <% }); %>
         </select><br>
         <button type="submit" class="">Add Book</button>
