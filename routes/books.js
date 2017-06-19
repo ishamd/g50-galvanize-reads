@@ -47,7 +47,7 @@ router.get('/books', (_req, res, next) => {
   });
 });
 
-router.get('/books/add', (_req, res, next) => {
+router.get('/book', (_req, res, next) => {
   knex('authors')
   .then((authors) => {
     res.render('books_add', {
@@ -118,11 +118,17 @@ router.patch('/books/:id/edit', (req, res, next) => {
       next(err);
     });
 });
+// let authorId;
+// const insertIdsToJoinTable = id => knex('books_authors')
+//     .insert({
+//       book_id: id,
+//       author_id: authorId }, '*');
 
-router.post('/books/add', (req, res, next) => {
+
+router.post('/book', (req, res, next) => {
   const book = req.body;
-  const authorId = book.authors;
-
+  const authorId = book.author;
+  // console.log(authorId);
   knex('books')
   .insert({
     'Book Title': book.title,
@@ -130,15 +136,12 @@ router.post('/books/add', (req, res, next) => {
     'Book Description': book.description,
     'Book Cover URL': book.cover_url }, '*')
     .returning('id')
-  .then((id) => {
-    // res.send(authorId);
-    knex('books_authors')
-    .insert({
-      book_id: id,
-      author_id: authorId }, '*');
-  })
-    .then((result) => {
-      res.send(result);
+    .then(id => knex('books_authors')
+        .insert({
+          book_id: parseInt(id),
+          author_id: authorId }, '*'))
+    .then(() => {
+      res.redirect('/books');
     })
   .catch((err) => {
     next(err);
