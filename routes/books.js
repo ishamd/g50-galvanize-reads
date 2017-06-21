@@ -26,7 +26,7 @@ function getAuthorsForBook(bookId) {
 function getBookWithAuthors(bookId) {
   return Promise.all([
     getBook(bookId),
-    getAuthorsForBook(bookId),
+    getAuthorsForBook(bookId)
   ]).then((results) => {
     const [book, authors] = results;
     book.authors = authors;
@@ -39,7 +39,7 @@ router.get('/books', (_req, res, next) => {
   knex('books')
   .then((books) => {
     res.render('books', {
-      books,
+      books
     });
   })
   .catch((err) => {
@@ -47,11 +47,12 @@ router.get('/books', (_req, res, next) => {
   });
 });
 
+// GET request to render the books_add page with list of authors
 router.get('/book', (_req, res, next) => {
   knex('authors')
   .then((authors) => {
     res.render('books_add', {
-      authors,
+      authors
     });
   })
   .catch((err) => {
@@ -68,7 +69,7 @@ router.get('/books/:id', (_req, res, next) => {
 
   .then((books) => {
     res.render('books_profile', {
-      books,
+      books
     });
   })
 
@@ -85,7 +86,7 @@ router.get('/books/:id/edit', (_req, res, next) => {
 
   .then((books) => {
     res.render('books_edit', {
-      books,
+      books
     });
   })
 
@@ -94,6 +95,7 @@ router.get('/books/:id/edit', (_req, res, next) => {
   });
 });
 
+// PATCH request to update book information
 router.patch('/books/:id/edit', (req, res, next) => {
   knex('books')
     .where('id', req.params.id)
@@ -111,24 +113,19 @@ router.patch('/books/:id/edit', (req, res, next) => {
     })
     .then((books) => {
       res.render('books_edit', {
-        books,
+        books
       });
     })
     .catch((err) => {
       next(err);
     });
 });
-// let authorId;
-// const insertIdsToJoinTable = id => knex('books_authors')
-//     .insert({
-//       book_id: id,
-//       author_id: authorId }, '*');
 
-
+// POST request to add new book to db with one author
 router.post('/book', (req, res, next) => {
   const book = req.body;
   const authorId = book.author;
-  // console.log(authorId);
+
   knex('books')
   .insert({
     'Book Title': book.title,
@@ -148,5 +145,30 @@ router.post('/book', (req, res, next) => {
   });
 });
 
+// DELETE request to remove a book and its reference in join table
+router.delete('/books/:id', (req, res, next) => {
+  const bookID = req.params.id;
+
+  knex('books_authors')
+  .del()
+  .where('book_id', bookID)
+
+  .then(() => knex('books')
+  .where('id', bookID)
+  .first()
+
+  .then((row) => {
+    if (!row) {
+      return next();
+    }
+    return knex('books')
+      .del()
+      .where('id', bookID);
+  })
+  )
+  .catch((err) => {
+    next(err);
+  });
+});
 
 module.exports = router;

@@ -12,7 +12,10 @@
         <% }; %>
       </ol>
     <% }); %>
-    <a href="/books/<%=books[0]['id']%>/edit"><button type="button" class="btn btn-defualt">Edit</button></a>
-    <button type="button" class="btn btn-defualt">Remove</button>
+
+    <form method="POST" action="/books/<%=books[0]['id']%>?_method=DELETE">
+      <a href="/books/<%=books[0]['id']%>/edit"><button type="button" class="btn btn-defualt">Edit</button></a>
+      <button type="submit" class="btn btn-defualt" onclick="Materialize.toast('This book has been removed', 4000)">Remove</button>
+    </form>
   </body>
 </html>
