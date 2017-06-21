@@ -1,0 +1,26 @@
+<% include ./header %>
+    <h1>Edit Author</h1>
+      <!-- <h2><%=authors[0]['First Name']%></h2> -->
+      <form method="POST" action="/authors/<%=authors[0]['id']%>/edit?_method=PATCH">
+
+        <div class="">
+          <label for="edit-first">First Name</label><br>
+          <input type="text" name="first" id="edit-first" value="<%=authors[0]['First Name']%>">
+        </div>
+        <div class="">
+          <label for="edit-last">Last Name</label><br>
+          <input type="text" name="last" id="edit-last" value="<%=authors[0]['Last Name']%>">
+        </div>
+
+        <div class="">
+          <label for="edit-portrait-url">Portrait Image URL</label><br>
+          <input type="url" name="url" id="edit-portrait-url" value="<%=authors[0]['Portrait URL']%>">
+        </div>
+        <div class="">
+          <label for="edit-biography">Biography</label><br>
+          <textarea name="biography" rows="5" cols="80" id="edit-biography"><%=authors[0]['Biography']%></textarea>
+        </div>
+        <button type="submit" class="">Update Author</button>
+      </form>
+  </body>
+</html>

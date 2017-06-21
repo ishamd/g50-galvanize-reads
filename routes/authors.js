@@ -96,4 +96,49 @@ router.post('/author', (req, res, next) => {
   });
 });
 
+// GET request to populate book edit page using book id/info
+router.get('/authors/:id/edit', (_req, res, next) => {
+  const id = Number.parseInt(_req.params.id);
+
+  getAuthorWithBooks(id)
+
+  .then((authors) => {
+    res.render('authors_edit', {
+      authors
+    });
+  })
+
+  .catch((err) => {
+    next(err);
+  });
+});
+
+// PATCH request to update book information
+router.patch('/authors/:id/edit', (req, res, next) => {
+  knex('authors')
+    .where('id', req.params.id)
+    .then((author) => {
+      if (!author) {
+        return next();
+      }
+      return knex('authors')
+        .update({
+          id: req.params.id,
+          'First Name': req.body.first,
+          'Last Name': req.body.last,
+          Biography: req.body.biography,
+          'Portrait URL': req.body.url }, '*')
+        .where('id', req.params.id);
+    })
+    .then((authors) => {
+      res.render('authors_edit', {
+        authors
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+
 module.exports = router;
