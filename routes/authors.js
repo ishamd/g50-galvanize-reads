@@ -140,5 +140,30 @@ router.patch('/authors/:id/edit', (req, res, next) => {
     });
 });
 
+// DELETE request to remove a book and its reference in join table
+router.delete('/authors/:id', (req, res, next) => {
+  const authorID = req.params.id;
+
+  knex('books_authors')
+  .del()
+  .where('author_id', authorID)
+
+    .then(() => knex('authors')
+    .where('id', authorID)
+    .first()
+
+      .then((row) => {
+        if (!row) {
+          return next();
+        }
+        return knex('authors')
+          .del()
+          .where('id', authorID);
+      })
+    )
+  .catch((err) => {
+    next(err);
+  });
+});
 
 module.exports = router;
