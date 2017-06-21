@@ -153,19 +153,19 @@ router.delete('/books/:id', (req, res, next) => {
   .del()
   .where('book_id', bookID)
 
-  .then(() => knex('books')
-  .where('id', bookID)
-  .first()
+    .then(() => knex('books')
+    .where('id', bookID)
+    .first()
 
-  .then((row) => {
-    if (!row) {
-      return next();
-    }
-    return knex('books')
-      .del()
-      .where('id', bookID);
-  })
-  )
+      .then((row) => {
+        if (!row) {
+          return next();
+        }
+        return knex('books')
+          .del()
+          .where('id', bookID);
+      })
+    )
   .catch((err) => {
     next(err);
   });

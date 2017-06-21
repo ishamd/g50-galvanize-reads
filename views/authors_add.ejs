@@ -1,0 +1,11 @@
+<% include ./header %>
+    <h1>Add New Author</h1>
+      <form method="POST" action="/author">
+        <input type="text" name="first_name" id="new-first-name" value="" placeholder="First Name" required><br>
+        <input type="text" name="last_name" id="new-last-name" value="" placeholder="Last Name" required><br>
+        <input type="url" name="portait_url" id="new-portrait-url" value="" placeholder="Portrait Image URL" required><br>
+        <textarea name="biography" rows="5" cols="80" id="new-biography" placeholder="Biography" required></textarea><br>
+        <button type="submit" class="">Add Author</button>
+      </form>
+  </body>
+</html>
