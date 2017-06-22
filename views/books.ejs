@@ -1,33 +1,46 @@
 <% include ./header %>
     <h1>Books Page</h1>
     <h3>Total Books: <%=books.length%> </h3>
-    <h3>Filter:</h3>
-    <select>
-      <option value="Genre">Genre</option>
-      <option value="Genre1">Genre1</option>
-      <option value="Genre2">Genre2</option>
-    </select>
-    <h3>Search:</h3>
-    <form>
-      <input type="text" placeholder="Search (genre)"name="" value="">
-    </form>
-    <div class="row">
+    <label for="">Filter:</label>
+    <select name="genre" class="browser-default">
+      <option value="" disabled selected>Genre</option>
       <% books.forEach((book) => { %>
-        <div class="col s3">
-          <div class="card large">
-            <div class="card-image">
-              <img src="<%= book['Book Cover URL'] %>">
-            </div>
-            <div class="card-content">
-              <p><%= book['Book Description'] %></p>
-            </div>
-            <div class="card-action">
-              <a href="/books/<%= book['id'] %>"><%= book['Book Title'] %></a>
-            </div>
-          </div>
+      <option value="<%= book['Book Genre'] %>"><%= book['Book Genre'] %></option>
+      <% }); %>
+    </select><br>
+    <h6>Search:</h6>
+    <div class="row">
+      <div id="test-list" class="">
+        <div class="input-field">
+          <input id="search" class="fuzzy-search" type="search" placeholder="Search (by genre)" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
         </div>
-        <% }); %>
+        <ul class="list">
+            <% books.forEach((book) => { %>
+            <li>
+              <p class="genre" hidden><%= book['Book Genre'] %></p>
+              <div class="col s3">
+                <div class="card large">
+                  <div class="card-image">
+                    <img src="<%= book['Book Cover URL'] %>">
+                  </div>
+                  <div class="card-content">
+                    <p><%= book['Book Description'] %></p>
+                  </div>
+                  <div class="card-action">
+                    <a href="/books/<%= book['id'] %>"><%= book['Book Title'] %></a>
+                  </div>
+                </div>
+              </div>
+              <% }); %>
+          </li>
+        </ul>
       </div>
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script type="text/javascript" src="/js/genre-search.js"></script>
 
   </body>
 </html>
