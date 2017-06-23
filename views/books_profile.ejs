@@ -1,21 +1,34 @@
 <% include ./header %>
-    <h1>Books Profile Page</h1>
-    <% books.forEach((book) => { %>
-      <img src="<%= book['Book Cover URL'] %>" alt="<%= book['Book Title'] %>" style="height:300px;width:300px;"/>
-      <h2><%=book['Book Title']%></h2>
-      <h3><%=book['Book Genre']%></h3>
-      <p><%=book['Book Description']%></p>
-      <p><strong>Authors:</strong></p>
-      <ol>
-        <% for (let i = 0; i < books.authors.length; i++) { %>
-        <a href="/authors/<%=books.authors[i]['id'] %>"><li><%=books.authors[i]['First Name'] +' '+ books.authors[i]['Last Name']%></li></a>
-        <% }; %>
-      </ol>
-    <% }); %>
+    <div class="container">
+      <div class="row">
+      <!-- <h5>Book Profile</h5> -->
+      </div>
+      <div class="row">
+      <% books.forEach((book) => { %>
+        <div class="col s3">
+          <img src="<%= book['Book Cover URL'] %>" alt="<%= book['Book Title'] %>" style="max-width: 100%"/>
+        </div>
 
-    <form method="POST" action="/books/<%=books[0]['id']%>?_method=DELETE">
-      <a href="/books/<%=books[0]['id']%>/edit"><button type="button" class="btn btn-defualt">Edit</button></a>
-      <button type="submit" class="btn btn-defualt" onclick="Materialize.toast('This book has been removed', 4000)">Remove</button>
-    </form>
+        <div class="col s9">
+          <h5><%=book['Book Title']%></h5>
+          <p><strong>Genre:</strong></p>
+          <p><%=book['Book Genre']%></p>
+          <p><strong>Description:</strong></p>
+          <p><%=book['Book Description']%></p>
+          <p><strong>Authors:</strong></p>
+          <ol>
+            <% for (let i = 0; i < books.authors.length; i++) { %>
+            <a href="/authors/<%=books.authors[i]['id'] %>"><li><%=books.authors[i]['First Name'] +' '+ books.authors[i]['Last Name']%></li></a>
+            <% }; %>
+          </ol>
+        <% }); %>
+
+          <form method="POST" action="/books/<%=books[0]['id']%>?_method=DELETE">
+            <a href="/books/<%=books[0]['id']%>/edit"><button type="button" class="btn btn-defualt">Edit</button></a>
+            <button type="submit" class="btn btn-defualt" onclick="Materialize.toast('This book has been removed', 4000)">Remove</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
   <% include ./footer %>
