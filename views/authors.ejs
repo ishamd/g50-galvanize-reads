@@ -1,37 +1,36 @@
 <% include ./header %>
-    <h1>Authors Page</h1>
-
-    <h6>Search:</h6>
+<div class="container">
+  <h5>Search All Authors (<%=authors.length%>):</h5>
     <div class="row">
       <div id="author-list" class="">
         <div class="input-field">
-          <input id="search" class="fuzzy-search" type="search" placeholder="Search (by last name)" required>
+          <input id="search" class="fuzzy-search" type="search" placeholder="Enter Last Name Here" required>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
         <ul class="list">
-            <% authors.forEach((author) => { %>
-            <li>
-              <p class="last" hidden><%= author['Last Name'] %></p>
-              <div class="col s3">
-                <div class="card large">
-                  <div class="card-image">
-                    <img src="<%= author['Portrait URL'] %>" alt="<%= author['Last Name'] %>">
-                  </div>
-                  <div class="card-content">
-                    <p><%=author['Biography']%></p>
-                  </div>
+          <% authors.forEach((author) => { %>
+          <li>
+            <p class="last" hidden><%= author['Last Name'] %></p>
+            <div class="col s12">
+              <div class="card horizontal">
+                <div class="card-image">
+                  <img src="<%= author['Portrait URL'] %>" alt="<%= author['Last Name'] %>" height="200px">
+                </div>
+                <div class="card-stacked">
                   <div class="card-action">
                     <a href="/authors/<%= author['id'] %>"><%=author['First Name']+' '+author['Last Name']%></a>
+                    <p><%=author['Biography']%></p>
                   </div>
                 </div>
               </div>
+            </div>
           </li>
           <% }); %>
         </ul>
       </div>
     </div>
-
+  </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script type="text/javascript" src="/js/name-search.js"></script>
 
