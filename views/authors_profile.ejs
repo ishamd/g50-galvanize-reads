@@ -1,8 +1,15 @@
 <% include ./header %>
-    <h1>Authors Profile Page</h1>
+<div class="container">
+  <div class="row"></div>
+  <div class="row">
     <% authors.forEach((author) => { %>
-      <img src="<%= author['Portrait URL'] %>" alt="<%= author['First Name'] %>" style="height:175px;width:150px;"/>
-      <h2><%=author['First Name']+' '+author['Last Name']%></h2>
+    <div class="col s3">
+      <img src="<%= author['Portrait URL'] %>" alt="<%= author['First Name'] %>" style="max-width: 100%"/>
+    </div>
+
+    <div class="col s9">
+      <h5><%=author['First Name']+' '+author['Last Name']%></h5>
+      <p><strong>Biography:</strong></p>
       <p><%=author['Biography']%></p>
       <p><strong>Books:</strong></p>
       <ol>
@@ -10,10 +17,15 @@
         <a href="/books/<%=authors.books[i]['id'] %>"><li><%=authors.books[i]['Book Title']%></li></a>
         <% }; %>
       </ol>
-    <% }); %>
-    <a href="/authors/<%=authors[0]['id']%>/edit"><button type="button" class="btn btn-defualt">Edit</button></a>
-    <form method="POST" action="/authors/<%=authors[0]['id']%>?_method=DELETE">
-      <button type="submit" class="btn btn-defualt" onclick="Materialize.toast('This author has been removed', 4000)">Remove</button>
-    </form>
+      <% }); %>
+
+      <form method="POST" action="/authors/<%=authors[0]['id']%>?_method=DELETE">
+        <a href="/authors/<%=authors[0]['id']%>/edit"><button type="button" class="btn btn-defualt">Edit</button></a>
+        <button type="submit" class="btn btn-defualt" onclick="Materialize.toast('This author has been removed', 4000)">Remove</button>
+      </form>
+    </div>
+
+  </div>
+  </div>
   </body>
   <% include ./footer %>
