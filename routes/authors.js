@@ -72,7 +72,6 @@ router.get('/author', (_req, res, next) => {
 // POST request to add new author to db
 router.post('/author', (req, res, next) => {
   const author = req.body;
-  // const authorId = book.author;
 
   knex('authors')
   .insert({
@@ -80,11 +79,6 @@ router.post('/author', (req, res, next) => {
     'Last Name': author.last_name,
     Biography: author.biography,
     'Portrait URL': author.portrait_url }, '*')
-    // .returning('id')
-    // .then(id => knex('books_authors')
-    //     .insert({
-    //       book_id: parseInt(id),
-    //       author_id: authorId }, '*'))
     .then(() => {
       res.redirect('/authors');
     })
