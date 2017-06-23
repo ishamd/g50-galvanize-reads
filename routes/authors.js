@@ -66,10 +66,7 @@ router.get('/authors/:id', (_req, res, next) => {
 
 // GET request to render the books_add page with list of authors
 router.get('/author', (_req, res, next) => {
-  res.render('authors_add')
-  .catch((err) => {
-    next(err);
-  });
+  res.render('authors_add');
 });
 
 // POST request to add new author to db
