@@ -2,7 +2,7 @@
     <h1>Books Page</h1>
     <h3>Total Books: <%=books.length%> </h3>
     <label for="">Filter:</label>
-    <select name="genre" class="browser-default">
+    <select id="filter" name="genre" class="browser-default">
       <option value="" disabled selected>Genre</option>
       <% books.forEach((book) => { %>
       <option value="<%= book['Book Genre'] %>"><%= book['Book Genre'] %></option>
@@ -43,4 +43,4 @@
     <script type="text/javascript" src="/js/genre-search.js"></script>
 
   </body>
-</html>
+  <% include ./footer %>

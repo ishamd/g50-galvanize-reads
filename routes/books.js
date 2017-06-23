@@ -38,6 +38,7 @@ function getBookWithAuthors(bookId) {
 router.get('/books', (_req, res, next) => {
   knex('books')
   .then((books) => {
+    console.log(books);
     res.render('books', {
       books
     });
