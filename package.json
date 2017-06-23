@@ -7,7 +7,7 @@
     "knex": "knex",
     "lint": "eslint  --ignore-pattern public/js/vendor",
     "nf": "nf start",
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "test": "mocha"
   },
   "repository": "https://github.com/ishamd/g50-galvanize-reads.git",
@@ -20,6 +20,7 @@
     "knex": "^0.13.0",
     "method-override": "^2.3.9",
     "morgan": "^1.8.2",
+    "nodemon": "^1.11.0",
     "pg": "^6.2.4"
   }
 }
