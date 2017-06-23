@@ -1,5 +1,6 @@
 <% include ./header %>
-    <h1>Books Page</h1>
+<div class="container">
+<!--
     <h3>Total Books: <%=books.length%> </h3>
     <label for="">Filter:</label>
     <select id="filter" name="genre" class="browser-default">
@@ -7,12 +8,12 @@
       <% books.forEach((book) => { %>
       <option value="<%= book['Book Genre'] %>"><%= book['Book Genre'] %></option>
       <% }); %>
-    </select><br>
-    <h6>Search:</h6>
+    </select><br> -->
+    <h5>Search All Books (<%=books.length%>):</h5>
     <div class="row">
       <div id="test-list" class="">
         <div class="input-field">
-          <input id="search" class="fuzzy-search" type="search" placeholder="Search (by genre)" required>
+          <input id="search" class="fuzzy-search" type="search" placeholder="Enter Genre Here" required>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
@@ -20,16 +21,17 @@
             <% books.forEach((book) => { %>
             <li>
               <p class="genre" hidden><%= book['Book Genre'] %></p>
-              <div class="col s3">
-                <div class="card large">
+              <div class="col s12">
+                <div class="card horizontal">
                   <div class="card-image">
-                    <img src="<%= book['Book Cover URL'] %>">
+                    <img src="<%= book['Book Cover URL'] %>" height="200px" >
                   </div>
-                  <div class="card-content">
-                    <p><%= book['Book Description'] %></p>
-                  </div>
-                  <div class="card-action">
-                    <a href="/books/<%= book['id'] %>"><%= book['Book Title'] %></a>
+                  <div class="card-stacked">
+                    <div class="card-action">
+                      <a href="/books/<%= book['id'] %>"><%= book['Book Title'] %></a>
+                      <p><strong><%= book['Book Genre'] %></strong></p>
+                      <p><%= book['Book Description'] %></p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -37,6 +39,7 @@
           </li>
         </ul>
       </div>
+    </div>
     </div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
